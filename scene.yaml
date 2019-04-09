@@ -25,51 +25,62 @@ global:
         function() {
             return (global.language && feature['name:'+global.language]) || feature.name;
         }
+    neighborhood_highlight:
+
+styles:
+    polygons_transparent:
+        base: polygons
+        blend: overlay
+        blend_order: 1
+
 layers:
-    # xyz_space:
-    #     data: { source: _xyz_space}
-    #     draw:
-    #         lines:
-    #             order: 10000000
-    #             color: |
-    #                 function() {
-    #                     if (feature.bikeroute === 'ACCESS PATH') {
-    #                        return 'blue';
-    #                     } else if (feature.bikeroute === 'BIKE LANE') {
-    #                        return 'yellow';
-    #                     } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
-    #                        return 'red';
-    #                     } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
-    #                        return 'purple';
-    #                     } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
-    #                        return 'black';
-    #                     } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
-    #                        return 'pink'
-    #                     } else if (feature.bikeroute === 'SHARED-LANE') {
-    #                        return 'orange';
-    #                     }
-    #                 }
-    #             width: 2px
-    #             interactive: true
-    #             collide: false
-    # neighborhoods:
-    #     data: { source: _neighborhoods}
-    #     draw:
-    #         polygons:
-    #             order: 99999
-    #             color: '#F6F6F6'
-    #             width: 2px
-    #             interactive: true
-    #             collide: false
-    # neighborhoods2:
-    #     data: { source: _neighborhoods}
-    #     draw:
-    #         lines:
-    #             order: 9999
-    #             color: green
-    #             width: 2px
-    #             # interactive: true
-    #             collide: false
+    xyz_space:
+        data: { source: _xyz_space}
+        draw:
+            lines:
+                order: 10000000
+                color: |
+                    function() {
+                        if (feature.bikeroute === 'ACCESS PATH') {
+                           return 'blue';
+                        } else if (feature.bikeroute === 'BIKE LANE') {
+                           return 'yellow';
+                        } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
+                           return 'red';
+                        } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
+                           return 'purple';
+                        } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
+                           return 'black';
+                        } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
+                           return 'pink'
+                        } else if (feature.bikeroute === 'SHARED-LANE') {
+                           return 'orange';
+                        }
+                    }
+                width: 2px
+                interactive: true
+                collide: false
+    neighborhoods:
+        data: { source: _neighborhoods}
+        draw:
+
+            polygons:
+                order: 99999
+                style: polygons_transparent
+                # color: [0.404,0.451,1.0,0.1]
+                opacity: 0.5
+                width: 2px
+                interactive: true
+                collide: false
+    neighborhoods2:
+        data: { source: _neighborhoods}
+        draw:
+            lines:
+                order: 9999
+                color: '#F16FAA' #rgb(103, 115, 255)
+                width: 2px
+                # interactive: true
+                collide: false
     places:
         data: { source: xyz_osm }
         city-points:
