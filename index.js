@@ -20,29 +20,6 @@ fetch(xyzUrl)
       });
       map.attributionControl.addAttribution('<a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a>');
 
-      // var plugin = L.control.measure({
-      //   //  control position
-      //   position: 'topleft',
-      //   //  weather to use keyboard control for this plugin
-      //   keyboard: true,
-      //   //  shortcut to activate measure
-      //   activeKeyCode: 'M'.charCodeAt(0),
-      //   //  shortcut to cancel measure, defaults to 'Esc'
-      //   cancelKeyCode: 27,
-      //   //  line color
-      //   lineColor: 'red',
-      //   //  line weight
-      //   lineWeight: 2,
-      //   //  line dash
-      //   lineDashArray: '6, 6',
-      //   //  line opacity
-      //   lineOpacity: 1,
-      //   //  distance formatter
-      //   formatDistance: function (val) {
-      //     return Math.round(1000 * val / 1609.344) / 1000 + 'mile';
-      //   }
-      // }).addTo(map)
-      //
       console.log(data);
 
       document.getElementById('sidebar').innerText = 'City of chicago: ' + calculateDistance(data.features) + ' miles of bike lanes'

@@ -26,50 +26,50 @@ global:
             return (global.language && feature['name:'+global.language]) || feature.name;
         }
 layers:
-    xyz_space:
-        data: { source: _xyz_space}
-        draw:
-            lines:
-                order: 10000000
-                color: |
-                    function() {
-                        if (feature.bikeroute === 'ACCESS PATH') {
-                           return 'blue';
-                        } else if (feature.bikeroute === 'BIKE LANE') {
-                           return 'yellow';
-                        } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
-                           return 'red';
-                        } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
-                           return 'purple';
-                        } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
-                           return 'black';
-                        } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
-                           return 'pink'
-                        } else if (feature.bikeroute === 'SHARED-LANE') {
-                           return 'orange';
-                        }
-                    }
-                width: 2px
-                interactive: true
-                collide: false
-    neighborhoods:
-        data: { source: _neighborhoods}
-        draw:
-            polygons:
-                order: 99999
-                color: '#F6F6F6'
-                width: 2px
-                interactive: true
-                collide: false
-    neighborhoods2:
-        data: { source: _neighborhoods}
-        draw:
-            lines:
-                order: 9999
-                color: green
-                width: 2px
-                # interactive: true
-                collide: false
+    # xyz_space:
+    #     data: { source: _xyz_space}
+    #     draw:
+    #         lines:
+    #             order: 10000000
+    #             color: |
+    #                 function() {
+    #                     if (feature.bikeroute === 'ACCESS PATH') {
+    #                        return 'blue';
+    #                     } else if (feature.bikeroute === 'BIKE LANE') {
+    #                        return 'yellow';
+    #                     } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
+    #                        return 'red';
+    #                     } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
+    #                        return 'purple';
+    #                     } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
+    #                        return 'black';
+    #                     } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
+    #                        return 'pink'
+    #                     } else if (feature.bikeroute === 'SHARED-LANE') {
+    #                        return 'orange';
+    #                     }
+    #                 }
+    #             width: 2px
+    #             interactive: true
+    #             collide: false
+    # neighborhoods:
+    #     data: { source: _neighborhoods}
+    #     draw:
+    #         polygons:
+    #             order: 99999
+    #             color: '#F6F6F6'
+    #             width: 2px
+    #             interactive: true
+    #             collide: false
+    # neighborhoods2:
+    #     data: { source: _neighborhoods}
+    #     draw:
+    #         lines:
+    #             order: 9999
+    #             color: green
+    #             width: 2px
+    #             # interactive: true
+    #             collide: false
     places:
         data: { source: xyz_osm }
         city-points:
@@ -83,84 +83,96 @@ layers:
                      priority: 10
                      order: 999
                      font:
-                         family: Roboto Mono
-                         fill: '#C3CDD4'
+                         family: -apple-system
+                         fill: [0.675, 0.682, 0.690, 1.00]
                          stroke: { color: white, width: 4 }
-                         size: [[4, 15px], [8, 18px], [12, 26px]]
+                         size: [[4, 15px], [8, 18px], [12, 26px], [16, 30px]]
                          buffer: 2px
-        city-points:
+        neighborhoods:
             filter:
-                kind: locality
-                kind_detail: city
-                $zoom: { max: 18 }
+                - { kind: [neighbourhood, macrohood], $zoom: { min: 12.5 } }
+                - { kind: microhood, $zoom: { min: 15 } }
             draw:
                  text:
                      text_source: global.language_text_source
                      priority: 10
                      order: 999
                      font:
-                         family: Roboto Mono
-                         fill: '#C3CDD4'
-                         stroke: { color: white, width: 4 }
-                         size: [[4, 15px], [8, 18px], [12, 26px]]
+                         family: -apple-system
+                         transform: uppercase
+                         fill: [0.722, 0.741, 0.753, 1.00]
+                         stroke: { color: [0.984, 0.984, 0.984, 0.97], width: 4}
+                         size: [[12, 10px], [15,14px]]
                          buffer: 2px
     earth:
         data: { source: xyz_osm }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: 'white'
+                color: '#F2F1F3'
 
     landuse:
         data: { source: xyz_osm }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#E9EEF1'
+                color: [0.769, 0.929, 0.702, 1.00]
+        university:
+            filter:
+                kind: university
+            draw:
+                polygons:
+                    order: function() { return feature.sort_rank; }
+                    color: '#FFFAE0'
 
     water:
         data: { source: xyz_osm }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#DEE1E3'
+                color: '#AADAFF'
 
     roads:
         data: { source: xyz_osm }
-        filter:
-            not: { kind: [path, rail, ferry] }
-        draw:
-            lines:
-                order: function() { return feature.sort_rank; }
-                color: '#C3CDD4'
-                width: 8
-                cap: round
+        non-highway:
+            filter:
+                not: { kind: [path, rail, ferry, highway]}
+                $zoom: { min: 13}
+            draw:
+                lines:
+                    order: function() { return feature.sort_rank; }
+                    color: [1.000, 1.000, 1.000, 1.00]
+                    width: [[13,30], [15, 18],[18,20]]
+                    cap: round
         highway:
             filter:
                 kind: highway
             draw:
                 lines:
                     order: function() { return feature.sort_rank; }
-                    color: '#D3DCE1'
-                    width: [[5, 5000], [8, 800], [10, 200], [12, 100],[14,40], [18, 20]]
+                    color: [0.988, 0.875, 0.478, 1.00]
+                    width: [[5, 5000], [8, 800], [10, 200], [12, 150],[14,80], [18, 20]]
                     outline:
-                        color: '#EEEEEE'
-                        width: [[16, 0], [18, 1.5]]
+                        color: [1.000, 1.000, 1.000, 1.00]
+                        width: [[14, 8], [18, 3]]
         minor_road:
             filter:
                 kind: minor_road
+                $zoom: { min: 13}
             draw:
                 lines:
                     order: function() { return feature.sort_rank; }
-                    color: '#F8FAFB'
-                    width: 5
+                    color: [0.557, 0.573, 0.580, 1.00]
+                    width: 10
 
     buildings:
         data: { source: xyz_osm }
+        filter:
+            $zoom: { min: 13}
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#E9EBEB'
+                color: [0.922, 0.922, 0.922, 1.00]
         3d-buildings:
             filter: { $zoom: { min: 15 } }
             draw:
