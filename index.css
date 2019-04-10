@@ -13,11 +13,21 @@ body {
 }
 
 #sidebar {
-   background: white;
+   background: #181A1A;
+   width: 300px;
+   color: white;
    top: 0;
    left: 0;
    margin: 15px;
    padding: 15px;
    z-index: 10000;
    position: absolute;
+}
+
+.bar {
+   width: 100%;
+   background: blue;
+   height: 2px;
+   margin-bottom: 10px;
+   transition: .3s all;
 }

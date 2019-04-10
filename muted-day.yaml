@@ -36,32 +36,15 @@ styles:
         blend_order: 1
 
 layers:
-    xyz_space:
-        data: { source: _xyz_space}
-        draw:
-            lines:
-                order: 10000000
-                color: |
-                    function() {
-                        if (feature.bikeroute === 'ACCESS PATH') {
-                           return '#FBF249';
-                        } else if (feature.bikeroute === 'BIKE LANE') {
-                           return '#3DCA85';
-                        } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
-                           return '#4353FF';
-                        } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
-                           return 'white';
-                        } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
-                           return '#F9991B';
-                        } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
-                           return '#7D1AE6'
-                        } else if (feature.bikeroute === 'SHARED-LANE') {
-                           return '#D12A81';
-                        }
-                    }
-                width: [[0, 1px], [10, 1.5px], [20,4px]]
-                interactive: true
-                collide: false
+#     xyz_space:
+#         data: { source: _xyz_space}
+#         draw:
+#             lines:
+#                 order: 10000000
+#                 color: rgb(103, 115, 255)
+#                 width: 2px
+#                 interactive: true
+#                 collide: false
 # #     neighborhoods:
 #         data: { source: _neighborhoods}
 #         draw:

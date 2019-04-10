@@ -18,36 +18,26 @@ fetch(xyzUrl)
          layers: [tangram],
          zoomControl: false
       });
-      map.attributionControl.addAttribution('<a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a>');
+      map.attributionControl.addAttribution('Tangram | <a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a>');
 
       console.log(data);
 
-      document.getElementById('sidebar').innerText = 'City of chicago: ' + calculateDistance(data.features) + ' miles of bike lanes'
+      // document.getElementById('sidebar').innerText = JSON.stringify(calculateDistance(data.features, true));
 
 
 
-      const types = new Set(data.features.map(x => x.properties.bikeroute))
 
-      const distances = {};
+      map.on('click', function(ev) {
+          const bars = document.querySelectorAll('.bar');
+          bars.forEach(bar => {
+             bar.style.width = Math.floor(Math.random() * (100 - 1 + 1)) + 1 + '%'
+          })
+      });
 
-      types.forEach(q => distances[q] = 0)
-      console.log(distances);
 
-      types.forEach(q => console.log(q))
+      const distances = calculateDistance(data.features, true);
 
-      for (let z = 0; z < data.features.length; z++) {
-         const feature = data.features[z];
-         const geometry = feature.geometry.coordinates[0];
-         const t = feature.properties.bikeroute
-         for (let i = 0; i < geometry.length - 1; i++) {
-            distances[t] += turf.distance(
-               turf.point(geometry[i]),
-               turf.point(geometry[i + 1]), {
-                  units: 'miles'
-               }
-            )
-         }
-      }
+
       console.log(distances);
 
       function onMapClick(evt) {
@@ -109,22 +99,43 @@ fetch(xyzUrl)
 
       }
 
-      function calculateDistance(features) {
+      function calculateDistance(features, all = false) {
          let distance = 0;
+         const distances = {};
+
+         const types = new Set(features.map(x => x.properties.bikeroute))
+         types.forEach(q => distances[q] = 0);
+         distances['total'] = 0;
+
          for (let z = 0; z < features.length; z++) {
             const feature = features[z];
             const geometry = feature.geometry.coordinates[0];
             const t = feature.properties.bikeroute
             for (let i = 0; i < geometry.length - 1; i++) {
-               distance += turf.distance(
-                  turf.point(geometry[i]),
-                  turf.point(geometry[i + 1]), {
-                     units: 'miles'
-                  }
-               )
+               if (all) {
+                  distances[t] += turf.distance(
+                     turf.point(geometry[i]),
+                     turf.point(geometry[i + 1]), {
+                        units: 'miles'
+                     }
+                  )
+                  distances['total'] += turf.distance(
+                     turf.point(geometry[i]),
+                     turf.point(geometry[i + 1]), {
+                        units: 'miles'
+                     }
+                  )
+               } else {
+                  distance += turf.distance(
+                     turf.point(geometry[i]),
+                     turf.point(geometry[i + 1]), {
+                        units: 'miles'
+                     }
+                  )
+               }
             }
          }
-         return distance
+         return all ? distances : distance;
       }
 
    })

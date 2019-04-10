@@ -36,32 +36,15 @@ styles:
         blend_order: 1
 
 layers:
-    xyz_space:
-        data: { source: _xyz_space}
-        draw:
-            lines:
-                order: 10000000
-                color: |
-                    function() {
-                        if (feature.bikeroute === 'ACCESS PATH') {
-                           return '#FBF249';
-                        } else if (feature.bikeroute === 'BIKE LANE') {
-                           return '#3DCA85';
-                        } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
-                           return '#4353FF';
-                        } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
-                           return 'white';
-                        } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
-                           return '#F9991B';
-                        } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
-                           return '#7D1AE6'
-                        } else if (feature.bikeroute === 'SHARED-LANE') {
-                           return '#D12A81';
-                        }
-                    }
-                width: [[0, 1px], [10, 1.5px], [20,4px]]
-                interactive: true
-                collide: false
+#     xyz_space:
+#         data: { source: _xyz_space}
+#         draw:
+#             lines:
+#                 order: 10000000
+#                 color: rgb(103, 115, 255)
+#                 width: 2px
+#                 interactive: true
+#                 collide: false
 # #     neighborhoods:
 #         data: { source: _neighborhoods}
 #         draw:
@@ -83,59 +66,59 @@ layers:
     #             width: 2px
     #             # interactive: true
     #             collide: false
-    places:
-        data: { source: xyz_osm }
-        city-points:
-            filter:
-                kind: locality
-                kind_detail: city
-                $zoom: { max: 18 }
-            draw:
-                 text:
-                     text_source: global.language_text_source
-                     priority: 10
-                     order: 999
-                     font:
-                         family: -apple-system
-                         fill: '#787878'
-                         stroke: { color: [0.000, 0.000, 0.000, 1.00], width: 4 }
-                         size: [[4, 15px], [8, 18px], [12, 26px], [16, 30px]]
-                         buffer: 2px
-        neighborhoods:
-            filter:
-                - { kind: [neighbourhood, macrohood], $zoom: { min: 12.5 } }
-                - { kind: microhood, $zoom: { min: 15 } }
-            draw:
-                 text:
-                     text_source: global.language_text_source
-                     priority: 10
-                     order: 999
-                     font:
-                         family: -apple-system
-                         transform: uppercase
-                         fill: '#787878'
-                         stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
-                         size: [[12, 10px], [15,14px]]
-                         buffer: 2px
+    # places:
+    #     data: { source: xyz_osm }
+    #     city-points:
+    #         filter:
+    #             kind: locality
+    #             kind_detail: city
+    #             $zoom: { max: 18 }
+    #         draw:
+    #              text:
+    #                  text_source: global.language_text_source
+    #                  priority: 10
+    #                  order: 999
+    #                  font:
+    #                      family: -apple-system
+    #                      fill: [0.675, 0.682, 0.690, 1.00]
+    #                      stroke: { color: white, width: 4 }
+    #                      size: [[4, 15px], [8, 18px], [12, 26px], [16, 30px]]
+    #                      buffer: 2px
+    #     neighborhoods:
+    #         filter:
+    #             - { kind: [neighbourhood, macrohood], $zoom: { min: 12.5 } }
+    #             - { kind: microhood, $zoom: { min: 15 } }
+    #         draw:
+    #              text:
+    #                  text_source: global.language_text_source
+    #                  priority: 10
+    #                  order: 999
+    #                  font:
+    #                      family: -apple-system
+    #                      transform: uppercase
+    #                      fill: [0.722, 0.741, 0.753, 1.00]
+    #                      stroke: { color: [0.984, 0.984, 0.984, 0.97], width: 4}
+    #                      size: [[12, 10px], [15,14px]]
+    #                      buffer: 2px
     earth:
         data: { source: xyz_osm }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: [0.153, 0.157, 0.153, 1.00]
+                color: '#2A2F2E'
 
     landuse:
         data: { source: xyz_osm }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#181818'
+                color: '#364946'
     water:
         data: { source: xyz_osm }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#181A1A'
+                color: '#2D3937'
 
     roads:
         data: { source: xyz_osm }
@@ -144,12 +127,9 @@ layers:
                 kind: highway
             draw:
                 lines:
-                    order: 100000
-                    color: [0.251, 0.247, 0.247, 1.00]
+                    order: function() { return feature.sort_rank; }
+                    color: '#2A3432'
                     width: [[5, 5000], [8, 800], [10, 200], [12, 150],[14,120], [18, 20]]
-                    outline:
-                        color: [0.141, 0.137, 0.137, 1.00]
-                        width: [[14, 8], [18, 3]]
 
         major_road:
             filter:
@@ -158,7 +138,7 @@ layers:
             draw:
                 lines:
                     order: function() { return feature.sort_rank; }
-                    color: '#373737'
+                    color: '#2A3432'
                     width: [[10,90], [15, 18],[18,20]]
         minor_road:
             filter:
@@ -167,7 +147,7 @@ layers:
             draw:
                 lines:
                     order: function() { return feature.sort_rank; }
-                    color: '#373737'
+                    color: [1.000, 1.000, 1.000, 1.00]
                     width: [[13,15], [15, 15],[18,20]]
 
     buildings:
@@ -177,7 +157,7 @@ layers:
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: [0.173, 0.173, 0.169, 1.00]
+                color: [0.922, 0.922, 0.922, 1.00]
         3d-buildings:
             filter: { $zoom: { min: 15 } }
             draw:
