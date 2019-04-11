@@ -12,12 +12,11 @@ async function init() {
    const center = [41.81350459907969, -87.7451178431511]
    map = L.map('map', {
       center: center,
-      zoom: 5,
+      zoom: 8,
       layers: [tangram],
       zoomControl: false
    });
    map.attributionControl.addAttribution('<a href="https://github.com/tangrams/tangram">Tangram</a> | <a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a> | <a href="loading.io">Loading.io</a>');
-
 
    const response = await fetch(xyzUrl);
    const data = await response.json();
@@ -29,12 +28,12 @@ async function init() {
    //    }
    // })
 
-
-
    map.flyTo(center, 11, {
       animate: true,
       duration: 0.5
    })
+
+
 
    const distances = calculateDistance(data.features, true);
    assignTotals(distances);
@@ -42,13 +41,17 @@ async function init() {
 
    function assignTotals(n) {
 
-      const keys = Object.keys(n);
+      const keys = Object.keys(n).sort((a,b) => n[b]- n[a])
+      // keys.forEach(key => console.log(`${key}: ${n[key]}`))
       const max = Object.keys(n).reduce((a, b) => n[a] > n[b] ? a : b);
 
       for (let i = 0; i < keys.length; i++) {
+
+         console.log(`${keys[i]}: ${n[keys[i]]}`)
          // document.getElementById(keys[i]).style.order = i;
          document.getElementById(`${keys[i]}-bar`).style.width = (n[keys[i]] / n[max]) * 100 + '%';
-
+         document.getElementById(`${keys[i]}`).style.top = (i * 40) + 'px';
+         // console.log(document.getElementById(`${keys[i]}`).style.top)
          document.getElementById(`${keys[i]}-text`).innerText = '(' + (Math.round(n[keys[i]] * 100) / 100) + ' miles)';
          if (n[keys[i]] === 0) {
             document.getElementById(`${keys[i]}-bar`).style.width = '0%';
