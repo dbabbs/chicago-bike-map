@@ -24,10 +24,28 @@ body {
    position: absolute;
 }
 
+.bar-container {
+   display: flex;
+   flex-direction: column;
+   transition: 1s all;
+}
+
 .bar {
-   width: 100%;
+   width: 0%;
    background: blue;
-   height: 2px;
+   /* height: 2px; */
+   border-radius: 20px;
    margin-bottom: 10px;
    transition: .3s all;
+   padding: 0 5px;
+   box-sizing: border-box;
+   transition: 1s all;
+}
+
+.inner-bar {
+   height: 3px;
+}
+
+.row {
+   margin: 30px 0;
 }

@@ -1,6 +1,6 @@
+const xyzUrl = `https://xyz.api.here.com/hub/spaces/Pqh7dfFY/search?access_token=AJXABoLRYHN488wIHnxheik`;
 
-
-const xyzUrl = `https://xyz.api.here.com/hub/spaces/Pqh7dfFY/search?access_token=AJXABoLRYHN488wIHnxheik`
+const types = ["BIKE LANE", "BUFFERED BIKE LANE", "SHARED-LANE", "PROTECTED BIKE LANE", "OFF-STREET TRAIL", "ACCESS PATH", "NEIGHBORHOOD GREENWAY"]
 
 fetch(xyzUrl)
    .then(res => res.json())
@@ -14,36 +14,40 @@ fetch(xyzUrl)
       })
       const map = L.map('map', {
          center: [41.881832, -87.623177],
-         zoom: 11,
+         zoom: 5,
          layers: [tangram],
          zoomControl: false
       });
-      map.attributionControl.addAttribution('Tangram | <a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a>');
-
-      console.log(data);
-
-      // document.getElementById('sidebar').innerText = JSON.stringify(calculateDistance(data.features, true));
-
-
-
-
-      map.on('click', function(ev) {
-          const bars = document.querySelectorAll('.bar');
-          bars.forEach(bar => {
-             bar.style.width = Math.floor(Math.random() * (100 - 1 + 1)) + 1 + '%'
-          })
-      });
-
+      map.attributionControl.addAttribution('<a href="https://github.com/tangrams/tangram">Tangram</a> | <a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a>');
+      map.flyTo([41.881832, -87.623177], 11, {
+         animate: true,
+         duration: 1
+      })
 
       const distances = calculateDistance(data.features, true);
+      assignTotals(distances);
+      // map.on('click', () => assignTotals(distances, true))
 
 
-      console.log(distances);
+
+
+      function assignTotals(n) {
+
+         delete n['total']
+         const keys = Object.keys(n);
+         const max = Object.keys(n).reduce((a, b) => n[a] > n[b] ? a : b);
+
+         for (let i = 0; i < keys.length; i++) {
+            document.getElementById(keys[i]).style.order = i;
+            document.getElementById(`${keys[i]}-bar`).style.width = (n[keys[i]] / n[max]) * 100 + '%';
+            console.log(document.getElementById(`${keys[i]}-text`))
+            document.getElementById(`${keys[i]}-text`).innerText = Math.round(n[keys[i]] * 100) / 100 + ' miles';
+
+         }
+      }
 
       function onMapClick(evt) {
          if (evt.feature) {
-            console.log(evt)
-
             fetch(`https://xyz.api.here.com/hub/spaces/5kwzZmtK/search?access_token=AJXABoLRYHN488wIHnxheik&tags=${evt.feature.id}`)
                .then(res => res.json())
                .then(poly => {
@@ -51,34 +55,27 @@ fetch(xyzUrl)
 
                   let cutDistance = 0;
                   const polyGeo = poly.features[0];
-                  console.log(polyGeo)
+
 
                   const temp = []
 
                   data.features.forEach(line => {
-                     // console.log(line);
+
                      const points = turf.points(line.geometry.coordinates[0]);
-                     // console.log(points);
-
-
 
                      const within = turf.pointsWithinPolygon(points, polyGeo);
-                     // console.log(within);
+
                      if (within.features.length > 0) {
+                        within.features.forEach(m => m.properties = line.properties)
                         temp.push(within)
+
                      }
                   })
-                  // console.log(cutDistance)
-
-                  // console.log(
-                     // temp.map(x => console.log(JSON.stringify(x)))
-                  // );
-
                   const newLines = temp.map(u => {
 
                      const newLineString = {
                         "type": "Feature",
-                        "properties": {},
+                        "properties": u.features[0].properties,
                         "geometry": {
                            "type": "LineString",
                            "coordinates": [
@@ -90,10 +87,9 @@ fetch(xyzUrl)
 
                      return newLineString
                   })
-                  console.log(newLines);
-                  console.log(calculateDistance(newLines))
-
-                  document.getElementById('sidebar').innerText = polyGeo.properties.pri_neigh + ': ' + calculateDistance(newLines) + ' miles of bike lanes'
+                  const distances = calculateDistance(newLines, true);
+                  console.log(distances);
+                  assignTotals(distances)
                })
          }
 
@@ -103,7 +99,6 @@ fetch(xyzUrl)
          let distance = 0;
          const distances = {};
 
-         const types = new Set(features.map(x => x.properties.bikeroute))
          types.forEach(q => distances[q] = 0);
          distances['total'] = 0;
 

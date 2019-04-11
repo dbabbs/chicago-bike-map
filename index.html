@@ -13,33 +13,63 @@
 </head>
 <body>
    <div id="sidebar">
-      <div>
-         <div class="bar" style="background: #FBF249;"></div>
-         <div>Access Path</div>
-      </div>
-      <div>
-         <div class="bar" style="background: #3DCA85;"></div>
-         <div>Bike Lane</div>
-      </div>
-      <div>
-         <div class="bar" style="background: #4353FF;"></div>
-         <div>Buffered Bike Lane</div>
-      </div>
-      <div>
-         <div class="bar" style="background: #fff;"></div>
-         <div>Neighborhood Greenway</div>
-      </div>
-      <div>
-         <div class="bar" style="background: #F9991B;"></div>
-         <div>Off Street Trail</div>
-      </div>
-      <div>
-         <div class="bar" style="background: #7D1AE6;"></div>
-         <div>Protected Bike Lane</div>
-      </div>
-      <div>
-         <div class="bar" style="background: #D12A81;"></div>
-         <div>Shared Lane</div>
+      <div class="bar-container">
+         <div class="row" id="ACCESS PATH">
+            <div id="ACCESS PATH-bar" class="bar" style="background: #FBF249;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Access Path
+               <span id="ACCESS PATH-text" class="text">300</span>
+            </div>
+         </div>
+         <div class="row" id="BIKE LANE">
+            <div id="BIKE LANE-bar" class="bar" style="background: #3DCA85;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Bike Lane
+               <span id="BIKE LANE-text" class="text">300</span>
+            </div>
+         </div>
+         <div class="row" id="BUFFERED BIKE LANE">
+            <div id="BUFFERED BIKE LANE-bar" class="bar" style="background: #4353FF;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Buffered Bike Lane
+               <span id="BUFFERED BIKE LANE-text" class="text">300</span>
+            </div>
+         </div>
+         <div class="row" id="NEIGHBORHOOD GREENWAY">
+            <div id="NEIGHBORHOOD GREENWAY-bar" class="bar" style="background: #fff;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Neighborhood Greenway
+               <span id="NEIGHBORHOOD GREENWAY-text" class="text">300</span>
+            </div>
+         </div>
+         <div class="row" id="OFF-STREET TRAIL">
+            <div id="OFF-STREET TRAIL-bar" class="bar" style="background: #F9991B;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Off Street Trail
+               <span id="OFF-STREET TRAIL-text" class="text">300</span>
+            </div>
+         </div>
+         <div class="row" id="PROTECTED BIKE LANE">
+            <div id="PROTECTED BIKE LANE-bar" class="bar" style="background: #7D1AE6;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Protected Bike Lane
+               <span id="PROTECTED BIKE LANE-text" class="text">300</span>
+            </div>
+         </div>
+         <div class="row" id="SHARED-LANE">
+            <div id="SHARED-LANE-bar" class="bar" style="background: #D12A81;">
+               <div class="inner-bar"></div>
+            </div>
+            <div>Shared Lane
+               <span id="SHARED-LANE-text" class="text">300</span>
+            </div>
+         </div>
       </div>
    </div>
    <div id="map"></div>

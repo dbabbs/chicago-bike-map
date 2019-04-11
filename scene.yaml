@@ -16,7 +16,6 @@ sources:
     _neighborhoods:
         type: GeoJSON
         url: https://xyz.api.here.com/hub/spaces/5kwzZmtK/tile/web/{z}_{x}_{y}
-
         url_params:
             access_token: AZL4Ab9z2cBFt9d2PQ2hh0k
             clip: true
@@ -27,8 +26,6 @@ global:
         function() {
             return (global.language && feature['name:'+global.language]) || feature.name;
         }
-    neighborhood_highlight:
-
 styles:
     polygons_transparent:
         base: polygons
@@ -62,27 +59,26 @@ layers:
                 width: [[0, 1px], [10, 1.5px], [20,4px]]
                 interactive: true
                 collide: false
-# #     neighborhoods:
-#         data: { source: _neighborhoods}
-#         draw:
-
-#             polygons:
-#                 order: 99999
-#                 style: polygons_transparent
-#                 color: [0.404,0.451,1.0,0.1]
-#                 opacity: 0.5
-#                 width: 2px
-#                 interactive: true
-#                 collide: false
-    # neighborhoods2:
-    #     data: { source: _neighborhoods}
-    #     draw:
-    #         lines:
-    #             order: 9999
-    #             color: '#F16FAA' #rgb(103, 115, 255)
-    #             width: 2px
-    #             # interactive: true
-    #             collide: false
+    neighborhoods:
+        data: { source: _neighborhoods}
+        draw:
+            polygons:
+                order: 99999
+                style: polygons_transparent
+                color: [0.404,0.451,1.0,0.1]
+                opacity: 0.5
+                width: 2px
+                interactive: true
+                collide: false
+    neighborhoods2:
+        data: { source: _neighborhoods}
+        draw:
+            lines:
+                order: 9999
+                color: '#FFFFFF' #rgb(103, 115, 255)
+                width: 2px
+                interactive: true
+                collide: false
     places:
         data: { source: xyz_osm }
         city-points:
