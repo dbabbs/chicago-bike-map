@@ -8,7 +8,7 @@ sources:
         max_zoom: 16
         url_params:
             access_token: AZL4Ab9z2cBFt9d2PQ2hh0k
-    _xyz_space:
+    _routes:
         type: GeoJSON
         url: https://xyz.api.here.com/hub/spaces/Pqh7dfFY/tile/web/{z}_{x}_{y}
         url_params:
@@ -36,8 +36,8 @@ styles:
         dash: [1, 2]
 
 layers:
-    xyz_space:
-        data: { source: _xyz_space}
+    routes:
+        data: { source: _routes}
         draw:
             lines:
                 order: 10000000
@@ -62,29 +62,6 @@ layers:
                 width: [[0, 1px], [10, 1.5px], [20,4px]]
                 # interactive: true
                 collide: false
-    neighborhoods0:
-        filter:
-           pri_neigh: ''
-        data: { source: _neighborhoods}
-        draw:
-            polygons:
-                order: 999
-                style: polygons_transparent
-                color: [0.28,0.28,.28,0.9]
-                opacity: 0.5
-                width: 2px
-                # interactive: true
-                collide: false
-    neighborhoods8:
-        data: { source: _neighborhoods}
-        draw:
-            polygons:
-                order: 999
-                style: polygons_transparent
-                color: [0.28,0.28,.28,0.1]
-                width: 2px
-                interactive: true
-                collide: false
     neighborhoods2:
         data: { source: _neighborhoods}
         draw:
@@ -92,7 +69,7 @@ layers:
                 order: 9999
                 color: '#7B7B7B'
                 width: 2px
-                interactive: true
+                # interactive: true
                 collide: false
     places:
         data: { source: xyz_osm }

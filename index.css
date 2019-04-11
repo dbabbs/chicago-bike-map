@@ -1,6 +1,6 @@
 :root {
    --sidebar-width: 300px;
-   --sidebar-padding: 20px;
+   --sidebar-padding: 15px;
 }
 
 body {
@@ -28,7 +28,7 @@ body {
    color: white;
    top: 0;
    left: 0;
-   margin: 20px;
+   margin: 15px;
    padding: var(--sidebar-padding);
    z-index: 10000;
    position: absolute;
@@ -75,10 +75,9 @@ a:hover {
    width: 0%;
    background: blue;
    border-radius: 3px;
-   transition: .3s all;
+   transition: .7s all ease-out;
    padding: 5px 5px;
    box-sizing: border-box;
-   transition: 1s all;
    white-space: nowrap;
 }
 
@@ -102,7 +101,7 @@ a:hover {
 .row {
    margin: 10px 0;
    position: absolute;
-   transition: .6s all;
+   transition: .6s all ease-out;
    width: calc(var(--sidebar-width) - var(--sidebar-padding) * 2);
 }
 
