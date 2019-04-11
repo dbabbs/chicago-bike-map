@@ -10,67 +10,95 @@
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
    <link rel="stylesheet" href="index.css">
    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
 </head>
 <body>
    <div id="sidebar">
+      <div class="title-row">
+         <div class="title">
+            Chicago Bike Routes
+         </div>
+         <img src="loading.svg" id="loading" alt="loading">
+      </div>
+
+      <div class="subtitle">
+         Map of Chicago bike infrastructure. Data from the
+         <a href="https://data.cityofchicago.org/Transportation/Bike-Routes/3w5d-sru8">Chicago Data Portal</a>.
+      </div>
+      <div class="subtitle">
+         Select a neighborhood to explore its infrastructure.
+      </div>
+      <div id="neighborhood">
+         City of Chicago
+      </div>
       <div class="bar-container">
+         <div class="row" id="total">
+            <div id="total-bar" class="bar" style="background: white; color: black;">
+               Total <span id="total-text" class="text" style="color: #434343;"></span>
+            </div>
+            <div>
+
+            </div>
+         </div>
          <div class="row" id="ACCESS PATH">
             <div id="ACCESS PATH-bar" class="bar" style="background: #FBF249;">
-               <div class="inner-bar"></div>
+               Access Path <span id="ACCESS PATH-text" class="text"></span>
             </div>
-            <div>Access Path
-               <span id="ACCESS PATH-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
          <div class="row" id="BIKE LANE">
             <div id="BIKE LANE-bar" class="bar" style="background: #3DCA85;">
-               <div class="inner-bar"></div>
+               Bike Lane <span id="BIKE LANE-text" class="text"></span>
             </div>
-            <div>Bike Lane
-               <span id="BIKE LANE-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
          <div class="row" id="BUFFERED BIKE LANE">
             <div id="BUFFERED BIKE LANE-bar" class="bar" style="background: #4353FF;">
-               <div class="inner-bar"></div>
+               Buffered Bike Lane <span id="BUFFERED BIKE LANE-text" class="text"></span>
             </div>
-            <div>Buffered Bike Lane
-               <span id="BUFFERED BIKE LANE-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
          <div class="row" id="NEIGHBORHOOD GREENWAY">
-            <div id="NEIGHBORHOOD GREENWAY-bar" class="bar" style="background: #fff;">
-               <div class="inner-bar"></div>
+            <div id="NEIGHBORHOOD GREENWAY-bar" class="bar" style="background: #8B572A;">
+               Neighborhood Greenway <span id="NEIGHBORHOOD GREENWAY-text" class="text"></span>
             </div>
-            <div>Neighborhood Greenway
-               <span id="NEIGHBORHOOD GREENWAY-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
          <div class="row" id="OFF-STREET TRAIL">
             <div id="OFF-STREET TRAIL-bar" class="bar" style="background: #F9991B;">
-               <div class="inner-bar"></div>
+               Off Street Trail <span id="OFF-STREET TRAIL-text" class="text"></span>
             </div>
-            <div>Off Street Trail
-               <span id="OFF-STREET TRAIL-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
          <div class="row" id="PROTECTED BIKE LANE">
             <div id="PROTECTED BIKE LANE-bar" class="bar" style="background: #7D1AE6;">
-               <div class="inner-bar"></div>
+               Protected Bike Lane <span id="PROTECTED BIKE LANE-text" class="text"></span>
             </div>
-            <div>Protected Bike Lane
-               <span id="PROTECTED BIKE LANE-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
          <div class="row" id="SHARED-LANE">
             <div id="SHARED-LANE-bar" class="bar" style="background: #D12A81;">
-               <div class="inner-bar"></div>
+               Shared Lane <span id="SHARED-LANE-text" class="text"></span>
             </div>
-            <div>Shared Lane
-               <span id="SHARED-LANE-text" class="text">300</span>
+            <div>
+
             </div>
          </div>
       </div>
+
+      <a id="mappy" href="https://explore.xyz.here.com">Get Mappy with HERE XYZ</a>
    </div>
    <div id="map"></div>
    <script src="index.js"></script>

@@ -2,7 +2,7 @@ body {
    margin: 0px;
    border: 0px;
    padding: 0px;
-   font-family: sans-serif;
+   font-family: 'Roboto', sans-serif;
    color: #333;
 }
 
@@ -12,16 +12,48 @@ body {
    position: absolute;
 }
 
+#loading {
+   height: 50px;
+   /* display: inline; */
+}
+
 #sidebar {
    background: #181A1A;
    width: 300px;
    color: white;
    top: 0;
    left: 0;
-   margin: 15px;
-   padding: 15px;
+   margin: 20px;
+   padding: 20px;
    z-index: 10000;
    position: absolute;
+   border-radius: 3px;
+}
+
+.title-row {
+   display: flex;
+   align-items: center;
+}
+
+.title {
+   font-weight: 500;
+   font-size: 24px;
+
+}
+
+a {
+   color: #A4CEFF;
+   text-decoration: none;
+}
+
+a:hover {
+   color: #A4CEFF;
+   text-decoration: underline;
+}
+
+.subtitle {
+   color: #C7C7C7;
+   margin: 20px 0;
 }
 
 .bar-container {
@@ -33,19 +65,56 @@ body {
 .bar {
    width: 0%;
    background: blue;
-   /* height: 2px; */
-   border-radius: 20px;
-   margin-bottom: 10px;
+   border-radius: 3px;
    transition: .3s all;
-   padding: 0 5px;
+   padding: 5px 2px;
    box-sizing: border-box;
    transition: 1s all;
+   white-space: nowrap;
 }
 
 .inner-bar {
-   height: 3px;
+   /* height: 3px; */
+
+}
+
+#neighborhood {
+   color: white;
+   font-weight: 500;
+   font-size: 18px;
+   margin: 20px 0;
+}
+
+.text {
+   color: #C7C7C7;
 }
 
 .row {
-   margin: 30px 0;
+   margin: 10px 0;
+}
+
+#mappy {
+   margin-top: 20px;
+   display: block;
+}
+
+.custom .leaflet-popup-tip {
+   display: none;
+}
+.custom .leaflet-popup-content-wrapper {
+   background: #181A1A;
+   color: #C7C7C7;
+   padding: 0;
+   border-radius: 0;
+   box-shadow: none;
+   font-family: 'Roboto';
+   font-size: 16px;
+   padding: 5px 0;
+   border-radius: 3px;
+   margin: 0;
+
+}
+
+.leaflet-fade-anim .leaflet-popup {
+  transition: none;
 }
