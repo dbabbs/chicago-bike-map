@@ -40,7 +40,6 @@ async function init() {
             t.target.setStyle({
                'fillColor': 'rgba(250,250,250,.5)'
             });
-            handleFeatureClick(t);
          });
          layer.on('mouseout', t => {
             t.target.setStyle({
@@ -156,8 +155,11 @@ async function init() {
             }
          })
       }
-      console.log(JSON.stringify(newLinesAsFeatureCollection))
-      tangram.scene.setDataSource('_routes', { type: 'GeoJSON', data: newLinesAsFeatureCollection });
+
+      if (document.getElementById('clip').checked){
+         tangram.scene.setDataSource('_routes', { type: 'GeoJSON', data: newLinesAsFeatureCollection });
+      }
+
 
       const distances = calculateDistance(newLinesForCalc, true);
       assignTotals(distances)
