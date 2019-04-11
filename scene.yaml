@@ -148,6 +148,7 @@ layers:
                 order: function() { return feature.sort_rank; }
                 color: '#181A1A'
 
+
     roads:
         data: { source: xyz_osm }
         highway:
@@ -161,6 +162,16 @@ layers:
                     outline:
                         color: [0.141, 0.137, 0.137, 1.00]
                         width: [[14, 8], [18, 3]]
+                text:
+                     priority: 10
+                     order: 999
+                     font:
+                         family: Roboto
+                         fill: '#787878'
+                         stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
+                         size: [[11, 10px], [15,14px]]
+                         buffer: 2px
+
         major_road:
             filter:
                 kind: major_road
@@ -171,15 +182,71 @@ layers:
                     color: '#373737'
                     width: [[10,90], [15, 18],[18,20]]
 
+            primary_labels:
+                filter:
+                    $zoom: { min: 13}
+                    kind_detail: [primary]
+                draw:
+                    text:
+                         priority: 10
+                         order: 999
+                         font:
+                             family: Roboto
+                             fill: '#787878'
+                             stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
+                             size: [[11, 10px], [15, 14px]]
+                             buffer: 2px
+            secondary_labels:
+                filter:
+                    $zoom: { min: 14}
+                    kind_detail: [secondary]
+                draw:
+                    text:
+                         priority: 10
+                         order: 999
+                         font:
+                             family: Roboto
+                             fill: '#787878'
+                             stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
+                             size: [[11, 9px], [15, 13px]]
+                             buffer: 2px
+            teriary_labels:
+                filter:
+                    $zoom: { min: 15}
+                    kind_detail: [secondary,tertiary]
+                draw:
+                    text:
+                         priority: 10
+                         order: 999
+                         font:
+                             family: Roboto
+                             fill: '#787878'
+                             stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
+                             size: [[11, 8px], [15, 12px]]
+                             buffer: 2px
+
         minor_road:
             filter:
                 kind: minor_road
-                $zoom: { min: 13}
+                $zoom: { min: 15}
             draw:
                 lines:
                     order: function() { return feature.sort_rank; }
                     color: '#373737'
                     width: [[13,15], [15, 15],[18,20]]
+            labels:
+                filter:
+                    $zoom: { min: 15}
+                draw:
+                    text:
+                         priority: 10
+                         order: 999
+                         font:
+                             family: Roboto
+                             fill: '#787878'
+                             stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
+                             size: [[11, 7px], [15, 11px]]
+                             buffer: 2px
 
     buildings:
         data: { source: xyz_osm }

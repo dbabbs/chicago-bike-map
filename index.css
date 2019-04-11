@@ -1,3 +1,8 @@
+:root {
+   --sidebar-width: 300px;
+   --sidebar-padding: 20px;
+}
+
 body {
    margin: 0px;
    border: 0px;
@@ -19,12 +24,12 @@ body {
 
 #sidebar {
    background: #181A1A;
-   width: 300px;
+   width: var(--sidebar-width);
    color: white;
    top: 0;
    left: 0;
    margin: 20px;
-   padding: 20px;
+   padding: var(--sidebar-padding);
    z-index: 10000;
    position: absolute;
    border-radius: 3px;
@@ -63,6 +68,7 @@ a:hover {
    transition: 1s all;
    position: relative;
    height: 500px;
+
 }
 
 .bar {
@@ -97,6 +103,7 @@ a:hover {
    margin: 10px 0;
    position: absolute;
    transition: .6s all;
+   width: calc(var(--sidebar-width) - var(--sidebar-padding) * 2);
 }
 
 #mappy {
