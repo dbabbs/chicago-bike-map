@@ -18,8 +18,16 @@ async function init() {
    map.attributionControl.addAttribution('<a href="https://github.com/tangrams/tangram">Tangram</a> | <a href="https://here.xyz">HERE XYZ</a> | <a href="https://www.openstreetmap.org/">OSM</a> | <a href="loading.io">Loading.io</a>');
 
 
-   const res = await Promise.all([fetch(routesUrl), fetch(neighborhoodsUrl)]);
-   const [routes, neighborhoods] = await Promise.all(res.map(x => x.json()))
+   // const res = await Promise.all([fetch(routesUrl), fetch(neighborhoodsUrl)]);
+   // const [routes, neighborhoods] = await Promise.all(res.map(x => x.json()))
+
+
+   const [routes, neighborhoods] = await Promise.all([
+      fetch(routesUrl).then(x => x.json()),
+      fetch(neighborhoodsUrl).then(x => x.json())
+   ])
+
+
    console.log(routes);
    console.log(neighborhoods);
 
@@ -28,7 +36,6 @@ async function init() {
       color: '#484848',
       weight: 0,
       opacity: 0,
-
    }
    L.geoJSON(neighborhoods, {
       style: neighborhoodStyle,
@@ -51,6 +58,41 @@ async function init() {
 
    // map.on('click', (evt) => onMapClick(evt));
 
+   document.getElementById('clear').onclick = () => {
+
+      tangram.scene.setDataSource('_routes', {
+         type: 'GeoJSON',
+         url: 'https://xyz.api.here.com/hub/spaces/Pqh7dfFY/tile/web/{z}_{x}_{y}',
+         url_params: {
+            access_token: 'AZL4Ab9z2cBFt9d2PQ2hh0k'
+         }
+      });
+      console.log(tangram.scene.config)
+      document.getElementById('clear').style.visibility = 'hidden';
+
+      const distances = calculateDistance(routes.features, true);
+      assignTotals(distances);
+      document.getElementById('neighborhood').innerText = 'City of Chicago';
+   }
+
+
+   document.getElementById('clip').onchange = () => {
+      if (!document.getElementById('clip').checked) {
+         tangram.scene.setDataSource('_routes', {
+            type: 'GeoJSON',
+            url: 'https://xyz.api.here.com/hub/spaces/Pqh7dfFY/tile/web/{z}_{x}_{y}',
+            url_params: {
+               access_token: 'AZL4Ab9z2cBFt9d2PQ2hh0k'
+            }
+         });
+         document.getElementById('clear').style.visibility = 'hidden';
+         const distances = calculateDistance(routes.features, true);
+         assignTotals(distances);
+         document.getElementById('neighborhood').innerText = 'City of Chicago';
+
+      }
+   }
+
 
    document.getElementById('loading').style.opacity = '0';
    // tangram.scene.subscribe({
@@ -65,6 +107,10 @@ async function init() {
       duration: 0.5
    })
 
+   console.log(
+      document.querySelector('.bar-container').clientHeight
+   )
+
 
 
    const distances = calculateDistance(routes.features, true);
@@ -76,6 +122,14 @@ async function init() {
       const keys = Object.keys(n).sort((a, b) => n[b] - n[a]).filter(item => item !== 'total');
       keys.unshift('total');
       const max = Object.keys(n).reduce((a, b) => n[a] > n[b] ? a : b);
+
+      if (n.total === 0) {
+         document.getElementById('total-bar').style.color = 'white';
+         document.getElementById('total-text').style.color = '#C7C7C7';
+      } else {
+         document.getElementById('total-bar').style.color = 'black';
+         document.getElementById('total-text').style.color = '#434343'
+      }
 
       for (let i = 0; i < keys.length; i++) {
          document.getElementById(`${keys[i]}-bar`).style.width = (n[keys[i]] / n[max]) * 100 + '%';
@@ -109,7 +163,7 @@ async function init() {
    }
 
    function handleFeatureClick(evt) {
-      document.getElementById('neighborhood').innerText = evt.target.feature.properties.pri_neigh;
+      document.getElementById('neighborhood').innerText = 'Neighborhood: ' + evt.target.feature.properties.pri_neigh;
       document.getElementById('loading').style.opacity = '1';
 
 
@@ -158,17 +212,14 @@ async function init() {
 
       if (document.getElementById('clip').checked){
          tangram.scene.setDataSource('_routes', { type: 'GeoJSON', data: newLinesAsFeatureCollection });
+
       }
+      document.getElementById('clear').style.visibility = 'visible';
+
 
 
       const distances = calculateDistance(newLinesForCalc, true);
       assignTotals(distances)
-   }
-
-   function handleNonFeatureClick() {
-      const distances = calculateDistance(routes.features, true);
-      assignTotals(distances);
-      document.getElementById('neighborhood').innerText = 'City of Chicago';
    }
 
    function calculateDistance(features, all = false) {

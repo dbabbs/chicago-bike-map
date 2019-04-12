@@ -1,6 +1,8 @@
 :root {
    --sidebar-width: 300px;
    --sidebar-padding: 15px;
+   --primary-color: #A4CEFF;
+   --grey: #C7C7C7;
 }
 
 body {
@@ -8,18 +10,24 @@ body {
    border: 0px;
    padding: 0px;
    font-family: 'Roboto', sans-serif;
-   color: #333;
+   font-size: 14px;
+}
+
+
+a {
+   color: var(--primary-color);
+   text-decoration: none;
+}
+
+a:hover {
+   color: var(--primary-color);
+   text-decoration: underline;
 }
 
 #map {
    height: 100%;
    width: 100%;
    position: absolute;
-}
-
-#loading {
-   height: 50px;
-   /* display: inline; */
 }
 
 #sidebar {
@@ -33,7 +41,10 @@ body {
    z-index: 10000;
    position: absolute;
    border-radius: 3px;
-   height: 600px;
+}
+
+#loading {
+   height: 40px;
 }
 
 .title-row {
@@ -43,49 +54,16 @@ body {
 
 .title {
    font-weight: 500;
-   font-size: 24px;
-
-}
-
-a {
-   color: #A4CEFF;
-   text-decoration: none;
-}
-
-a:hover {
-   color: #A4CEFF;
-   text-decoration: underline;
+   font-size: 22px;
 }
 
 .subtitle {
-   color: #C7C7C7;
+   color: var(--grey);
    margin: 20px 0;
 }
+
 label {
-   color: #C7C7C7;
-}
-.bar-container {
-   display: flex;
-   flex-direction: column;
-   transition: 1s all;
-   position: relative;
-   height: 500px;
-
-}
-
-.bar {
-   width: 0%;
-   background: blue;
-   border-radius: 3px;
-   transition: .7s all ease-out;
-   padding: 5px 5px;
-   box-sizing: border-box;
-   white-space: nowrap;
-}
-
-.inner-bar {
-   /* height: 3px; */
-
+   color: var(--grey);
 }
 
 #neighborhood {
@@ -95,16 +73,40 @@ label {
    margin: 20px 0;
 }
 
+.bar-container {
+   display: flex;
+   flex-direction: column;
+   transition: 1s all;
+   position: relative;
+   height: 330px;
+   width: calc(var(--sidebar-width));
 
-.text {
-   color: #C7C7C7;
 }
 
 .row {
    margin-bottom: 10px;
    position: absolute;
-   transition: .6s all ease-out;
-   width: calc(var(--sidebar-width) - var(--sidebar-padding) * 2);
+   transition: .8s all ease-out;
+   width: calc(var(--sidebar-width));
+}
+
+.bar {
+   width: 0%;
+   background: blue;
+   border-radius: 2px;
+   transition: .7s all ease-out;
+   padding: 5px 3px;
+   box-sizing: border-box;
+   white-space: nowrap;
+}
+
+.bar-title {
+   margin-left: 8px;
+}
+
+
+.text {
+   color: var(--grey);
 }
 
 #mappy {
@@ -112,12 +114,32 @@ label {
    display: block;
 }
 
+#clear {
+   visibility: hidden;
+}
+
+button {
+   padding: 9px 12px;
+   border: 1.2px solid var(--grey);
+   color: white;
+   font-family: 'Roboto', sans-serif;
+   border-radius: 3px;
+   font-size: 14px;
+   background: none;
+   transition: .2s all;
+}
+
+button:hover {
+   cursor:pointer;
+   background: darkgrey;
+}
+
 .custom .leaflet-popup-tip {
    display: none;
 }
 .custom .leaflet-popup-content-wrapper {
    background: #181A1A;
-   color: #C7C7C7;
+   color: var(--grey);
    padding: 0;
    border-radius: 0;
    box-shadow: none;
