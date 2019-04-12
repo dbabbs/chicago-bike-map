@@ -41,24 +41,6 @@ layers:
         draw:
             lines:
                 order: 10000000
-                # color: |
-                #     function() {
-                #         if (feature.bikeroute === 'ACCESS PATH') {
-                #            return '#FBF249';
-                #         } else if (feature.bikeroute === 'BIKE LANE') {
-                #            return '#3DCA85';
-                #         } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
-                #            return '#4353FF';
-                #         } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
-                #            return '#8B572A';
-                #         } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
-                #            return '#F9991B';
-                #         } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
-                #            return '#7D1AE6'
-                #         } else if (feature.bikeroute === 'SHARED-LANE') {
-                #            return '#D12A81';
-                #         }
-                #     }
                 color: |
                     function() {
                         if (feature.bikeroute === 'OFF-STREET TRAIL') {
@@ -78,7 +60,6 @@ layers:
                         }
                     }
                 width: [[0, 1px], [10, 1.5px], [20,4px]]
-                # interactive: true
                 collide: false
     neighborhoods2:
         data: { source: _neighborhoods}
@@ -87,7 +68,6 @@ layers:
                 order: 9999
                 color: '#7B7B7B'
                 width: 2px
-                # interactive: true
                 collide: false
     places:
         data: { source: xyz_osm }
@@ -142,8 +122,6 @@ layers:
             polygons:
                 order: function() { return feature.sort_rank; }
                 color: '#181A1A'
-
-
     roads:
         data: { source: xyz_osm }
         highway:
@@ -219,7 +197,6 @@ layers:
                              stroke: { color: [0.024, 0.000, 0.000, 0.97], width: 2}
                              size: [[11, 8px], [15, 12px]]
                              buffer: 2px
-
         minor_road:
             filter:
                 kind: minor_road

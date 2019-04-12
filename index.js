@@ -1,6 +1,5 @@
 const routesUrl = `https://xyz.api.here.com/hub/spaces/Pqh7dfFY/search?access_token=AJXABoLRYHN488wIHnxheik`;
 const neighborhoodsUrl = `https://xyz.api.here.com/hub/spaces/5kwzZmtK/search?access_token=AJXABoLRYHN488wIHnxheik`
-
 const types = ["BIKE LANE", "BUFFERED BIKE LANE", "SHARED-LANE", "PROTECTED BIKE LANE", "OFF-STREET TRAIL", "ACCESS PATH", "NEIGHBORHOOD GREENWAY"]
 
 async function init() {
@@ -56,13 +55,9 @@ async function init() {
 
    document.getElementById('clear').onclick = () => resetMap();
 
-   document.getElementById('clip').onchange = () => {
-      if (!document.getElementById('clip').checked) {
-         resetMap();
-      }
-   }
+   // document.getElementById('clip').onchange = (evt) => !evt.target.checked && resetMap();
 
-
+   document.getElementById('clip').onchange = () => console.log(this);
 
    map.flyTo(center, 11, {
       animate: true,
@@ -74,7 +69,6 @@ async function init() {
    assignTotals(
       calculateDistance(routes.features)
    );
-
 
    function assignTotals(n) {
       const keys = Object.keys(n).sort((a, b) => n[b] - n[a]).filter(item => item !== 'total');
@@ -88,7 +82,6 @@ async function init() {
          document.getElementById('total-bar').style.color = 'black';
          document.getElementById('total-text').style.color = '#434343';
       }
-
       for (let i = 0; i < keys.length; i++) {
          document.getElementById(`${keys[i]}-bar`).style.width = (n[keys[i]] / n[max]) * 100 + '%';
          document.getElementById(`${keys[i]}`).style.top = (i * 40) + 'px';
