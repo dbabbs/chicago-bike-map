@@ -41,22 +41,40 @@ layers:
         draw:
             lines:
                 order: 10000000
+                # color: |
+                #     function() {
+                #         if (feature.bikeroute === 'ACCESS PATH') {
+                #            return '#FBF249';
+                #         } else if (feature.bikeroute === 'BIKE LANE') {
+                #            return '#3DCA85';
+                #         } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
+                #            return '#4353FF';
+                #         } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
+                #            return '#8B572A';
+                #         } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
+                #            return '#F9991B';
+                #         } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
+                #            return '#7D1AE6'
+                #         } else if (feature.bikeroute === 'SHARED-LANE') {
+                #            return '#D12A81';
+                #         }
+                #     }
                 color: |
                     function() {
-                        if (feature.bikeroute === 'ACCESS PATH') {
-                           return '#FBF249';
-                        } else if (feature.bikeroute === 'BIKE LANE') {
-                           return '#3DCA85';
-                        } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
-                           return '#4353FF';
-                        } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
-                           return '#8B572A';
-                        } else if (feature.bikeroute === 'OFF-STREET TRAIL') {
-                           return '#F9991B';
+                        if (feature.bikeroute === 'OFF-STREET TRAIL') {
+                           return '#2B7DB4';
+                        } else if (feature.bikeroute === 'ACCESS PATH') {
+                           return '#1A9850'
                         } else if (feature.bikeroute === 'PROTECTED BIKE LANE') {
-                           return '#7D1AE6'
+                           return '#91CF60';
+                        } else if (feature.bikeroute === 'BUFFERED BIKE LANE') {
+                           return '#D9EF8B';
+                        } else if (feature.bikeroute === 'BIKE LANE') {
+                           return '#FFD150'
+                        } else if (feature.bikeroute === 'NEIGHBORHOOD GREENWAY') {
+                           return '#FC8D59';
                         } else if (feature.bikeroute === 'SHARED-LANE') {
-                           return '#D12A81';
+                           return '#D72F27'
                         }
                     }
                 width: [[0, 1px], [10, 1.5px], [20,4px]]
